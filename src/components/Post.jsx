@@ -2,10 +2,11 @@ import React from 'react'
 import { NavLink } from 'react-router-dom';
 
 function Post({postProps}) {
-    const {_id,title,content,comments,commentCount,like,likeCount} = postProps;
+    const {_id,title,content,comments,commentCount,like,likeCount,author} = postProps;
     return (
         <div>
             <h1>{title}</h1>
+            <h4>{author.username}</h4>
             <p>{content}</p>
             <NavLink to={`/posts/${_id}`}>git</NavLink>
             <p>🌧️{commentCount}</p>
