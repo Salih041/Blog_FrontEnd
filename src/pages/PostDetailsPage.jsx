@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import api from "../../api"
+import api from "../api"
 
 function PostDetailsPage() {
 
