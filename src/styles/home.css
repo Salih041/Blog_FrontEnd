@@ -1,0 +1,38 @@
+.posts-container{
+    min-width: 400px;
+    max-width: 60%; 
+    margin: 0 auto; 
+    padding: 15px 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.home__controls {
+    display: flex;
+    justify-content: center; /* Ortaya hizala */
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.home__controls button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.home__controls button:hover:not(:disabled) {
+    background-color: #2980b9;
+    cursor: pointer;
+}
+
+.home__controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

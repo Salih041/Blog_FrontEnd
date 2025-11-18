@@ -1,0 +1,71 @@
+.post-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 0.5rem;
+    padding-top: 0;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    background-color: aliceblue;
+}
+
+.post-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    border-color: #cffffc;
+    cursor: pointer;
+}
+
+.post-card__title {
+    margin-bottom: 0.3rem;
+    margin-top: 0px;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.post-card__title a {
+    text-decoration: none;
+    color: #2c3e50;
+    transition: color 0.2s;
+}
+
+.post-card__title a:hover {
+    color: #3498db;
+}
+
+.post-card__meta {
+    font-size: 0.9rem;
+    color: #868d8e;
+    font-weight: bold;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 10px;
+}
+
+.post-card__content {
+    color: black;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.post-card__footer {
+    display: flex;
+    justify-content: flex-start;
+    border-top: 1px solid gray;
+    padding-top: 0.5rem;
+    gap: 2rem;
+    color: gray;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.post-card__author_username{
+    color: rgb(0, 0, 0);
+}
+.post-card__author_username:hover
+{
+    color: #3498db;
+    transition: color 0.2s;
+}
