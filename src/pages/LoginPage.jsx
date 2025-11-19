@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import {useAuth} from "../context/AuthContext"
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
+import "../styles/auth.css"
 
 function LoginPage() {
   const [username,setUsername] = useState('');
@@ -37,37 +38,30 @@ function LoginPage() {
   }
 
   return (
-    <div>
-      <h1>Login</h1>
-      
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+    <div className='auth-container'>
+      <div className='auth-card'>
+        <h1 className='auth-title'>LOGIN</h1>
+
+        <form onSubmit={handleSubmit}>
+          <div className='form-group'>
+            <label htmlFor="username">Username</label>
+            <input className='form-input' type="text" id='username' value={username} required placeholder='Your username' onChange={(e)=>{setUsername(e.target.value)}} />
+          </div>
+
+          <div className='form-group'>
+            <label htmlFor="password">Password</label>
+            <input className='form-input' type="password" id='password' value={password} required placeholder='Your password' onChange={(e)=>{setPassword(e.target.value)}} />
+          </div>
+
+          {error && <div className='auth-error'>{error}</div>}
+
+          <button className='auth-button' type='submit' disabled={isLoading}>{isLoading ? 'Logging':"Login"}</button>
+        </form>
+
+        <div className='auth-footer'>
+          Don't have an account? <Link to={"/register"}>Register</Link>
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? 'Logging...' : 'Login'}
-        </button>
-      </form>
+      </div>
     </div>
   );
 }

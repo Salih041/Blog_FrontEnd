@@ -16,7 +16,7 @@ function Home() {
             setIsLoading(true);
             setError(null);
 
-            const response = await api.get(`/posts?page=${page}&limit=5`);
+            const response = await api.get(`/posts?page=${page}&limit=20`);
             setPosts(response.data.data);
             setPagination(response.data.pagination)
         } catch (error) {
