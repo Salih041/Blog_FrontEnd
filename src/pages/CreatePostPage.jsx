@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from "../api"
+import "../styles/Posting.css"
 
 function CreatePostPage() {
     const [title, setTitle] = useState("");
@@ -30,36 +31,30 @@ function CreatePostPage() {
     }
 
     return (
-        <div>
-            <h1>Create New Post</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Title:</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="content">Contento:</label>
-                    <textarea
-                        id="content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        required
-                        rows="10"
-                    />
-                </div>
+        <div className='post-form-container'>
+            <div className='post-form-card'>
+                <h1 className='post-form-title'>Create New Post</h1>
 
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <form onSubmit={handleSubmit}>
+                    <div className='form-group'>
+                        <label htmlFor="title">Title</label>
+                        <input className='form-input' type="text" id='title' value={title} onChange={(e) => { setTitle(e.target.value) }} placeholder='Title' required />
+                    </div>
 
-                <button type="submit" disabled={isLoading}>
-                    {isLoading ? '...' : 'Share'}
-                </button>
-            </form>
+                    <div className='form-group'>
+                        <label htmlFor="content">Content</label>
+                        <textarea className="form-textarea" id="content" value={content} onChange={(e) => { setContent(e.target.value) }} placeholder='Write your post' required></textarea>
+                    </div>
+
+                    {error && <div className="form-error">{error}</div>}
+
+                    <div className="form-actions">
+                        <button type="submit" className="submit-btn" disabled={isLoading}>
+                            Share
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
-
+import "../styles/Posting.css"
 
 function PostEditPage() {
     const [title, setTitle] = useState("");
@@ -53,34 +53,30 @@ function PostEditPage() {
     }
     if (error) return <p style={{ color: 'red' }}>Error: {error}</p>;
     return (
-        <div>
-            <h1>Postu Düzenle</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="title">Başlık:</label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title} // State'ten gelen dolu veri
-                        onChange={(e) => setTitle(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="content">İçerik:</label>
-                    <textarea
-                        id="content"
-                        value={content} // State'ten gelen dolu veri
-                        onChange={(e) => setContent(e.target.value)}
-                        required
-                        rows="10"
-                    />
-                </div>
+        <div className='post-form-container'>
+            <div className='post-form-card'>
+                <h1 className='post-form-title'>Edit Your Post</h1>
 
-                <button type="submit" disabled={!isLoading}>
-                    {!isLoading ? 'Güncelleniyor...' : 'Güncelle'}
-                </button>
-            </form>
+                <form onSubmit={handleSubmit}>
+                    <div className='form-group'>
+                        <label htmlFor="title">Title</label>
+                        <input className='form-input' type="text" id='title' value={title} onChange={(e) => { setTitle(e.target.value) }} required />
+                    </div>
+
+                    <div className='form-group'>
+                        <label htmlFor="content">Content</label>
+                        <textarea className="form-textarea" id="content" value={content} onChange={(e) => { setContent(e.target.value) }} required></textarea>
+                    </div>
+
+                    {error && <div className="form-error">{error}</div>}
+
+                    <div className="form-actions">
+                        <button type="submit" className="submit-btn" disabled={!isLoading}>
+                            Share
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }
