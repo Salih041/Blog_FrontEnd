@@ -19,7 +19,7 @@
 
 .nav__links a,
 .nav__links button {
-    margin-left: 3rem;
+    margin-right: 2rem;
     font-size: 1rem;
     color: black;
 }
@@ -33,4 +33,28 @@
     color: white;
     background-color: rgb(176, 0, 0);
     border-color: rgb(56, 0, 0);
+}
+.search-form
+{
+    margin-left: 4rem;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav_search-input{
+    height: 2rem;
+    width: 100%;
+    border : none;
+    background-color: rgb(230, 255, 255);
+    border-bottom: 4px solid gray;
+    border-radius: 25px;
+    box-sizing: border-box;
+    padding: 10px;
+    transition: 0.5s;
+}
+
+.nav_search-input:focus{
+    outline: none;
+    background-color:rgb(254, 255, 221) ;  
 }

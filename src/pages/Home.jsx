@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import api from '../api';
-import { Link } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import Post from '../components/Post';
 import "../styles/home.css"
 function Home() {
@@ -11,12 +11,24 @@ function Home() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null)
 
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchTerm = searchParams.get("search");
+
     const fetchPosts = async () => {
         try {
             setIsLoading(true);
             setError(null);
 
-            const response = await api.get(`/posts?page=${page}&limit=20`);
+            let url;
+
+            if (searchTerm) {
+                url = `/posts/search?q=${searchTerm}&page=${page}&limit=20`
+            }
+            else {
+                url = `/posts?page=${page}&limit=20`
+            }
+
+            const response = await api.get(url);
             setPosts(response.data.data);
             setPagination(response.data.pagination)
         } catch (error) {
@@ -29,7 +41,15 @@ function Home() {
 
     useEffect(() => {
         fetchPosts();
-    }, [page]);
+    }, [page, searchTerm]);
+
+    useEffect(() => {
+        setPage(1);
+    }, [searchTerm])
+
+    const clearSearch = () => {
+        setSearchParams({}); // url parametre temizleme
+    };
 
     const handlePageChange = (newPage) => {
         if (newPage >= 1 && newPage <= pagination.totalPages && newPage !== page) {
@@ -41,21 +61,35 @@ function Home() {
 
     if (isLoading) return <p className='loading'>LOading...</p>;
     if (error) return <p className='error'>Error: {error}</p>;
-    if (posts.length <= 0) return <p>---------</p>
     return (
         <>
-        <div className='posts-container'>
-            {
-                posts.map((post) => (
-                    <Post key={post._id} postProps={post}></Post>
-                ))
-            }
-        </div>
-        <div className='home__controls'>
-            <button onClick={()=>{handlePageChange(page-1)}} disabled={page===1}>prev</button>
-            <span>Page {page} / {pagination.totalPages}</span>
-            <button onClick={()=>{handlePageChange(page+1)}} disabled={page===pagination.totalPages}>next</button>
-        </div>
+            {searchTerm && (
+                <div style={{ textAlign: 'center', margin: '20px', color: '#666' }}>
+                    <h3>"{searchTerm}" results:</h3>
+                    <button onClick={clearSearch} className='home_clear-search-button'>Clear Search</button>
+                </div>
+            )}
+
+            <div className='posts-container'>
+                {
+                    posts.length > 0 ?
+                        (
+                            posts.map((post) => (
+                                <Post key={post._id} postProps={post}></Post>
+                        ))) : 
+                        (
+                            (
+                                <p style={{textAlign:'center', width:'100%'}}>{searchTerm ? "No Result" : "No Post"}</p>
+                            )
+                        )
+                    
+                }
+            </div>
+            <div className='home__controls'>
+                <button onClick={() => { handlePageChange(page - 1) }} disabled={page === 1}>prev</button>
+                <span>Page {page} / {pagination.totalPages}</span>
+                <button onClick={() => { handlePageChange(page + 1) }} disabled={page === pagination.totalPages}>next</button>
+            </div>
         </>
     )
 }

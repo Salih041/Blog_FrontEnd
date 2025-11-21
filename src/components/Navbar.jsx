@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {NavLink,useNavigate} from "react-router-dom" 
 import {useAuth} from "../context/AuthContext"
 
@@ -7,6 +7,7 @@ import '../styles/navbar.css';
 function Navbar() {
 
   const { isLoggedIn, logout } = useAuth();
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = ()=>{
@@ -14,11 +15,23 @@ function Navbar() {
     navigate("/");
   }
 
+  const handleSearch = (e)=>{
+    e.preventDefault();
+    if(!searchQuery.trim()) return;
+
+    navigate(`/?search=${searchQuery}`);
+    setSearchQuery("");
+  }
+
   return (
     <nav className='nav'>
         <div className='nav__logo'>
             <NavLink to="/">Selam Ya</NavLink>
         </div>
+
+        <form onSubmit={handleSearch} className='search-form'>
+          <input className='nav_search-input' type="text" placeholder='Search' value={searchQuery} onChange={(e)=>{setSearchQuery(e.target.value)}} />
+        </form>
 
         <div className='nav__links'>
           {isLoggedIn ? (

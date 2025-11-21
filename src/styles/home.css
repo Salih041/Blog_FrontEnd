@@ -36,3 +36,19 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+.home_clear-search-button
+{
+    cursor: pointer;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: rgb(255, 130, 130);
+    font-weight: bold;
+    transition: 0.5s;
+    border-radius: 10px;
+}
+.home_clear-search-button:hover
+{
+    background-color:rgb(255, 109, 109);
+}
