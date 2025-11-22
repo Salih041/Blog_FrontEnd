@@ -3,6 +3,7 @@ import {useAuth} from "../context/AuthContext"
 import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
 import "../styles/auth.css"
+import toast from 'react-hot-toast';
 
 function LoginPage() {
   const [username,setUsername] = useState('');
@@ -26,12 +27,13 @@ function LoginPage() {
       const {token,userID} = response.data;
 
       login(token,userID);
-
+      toast.success("Logged in")
       navigate('/');
     }catch(error)
     {
       console.error("Login error " ,error)
       setError(error.response ? error.response.data.message : "Login Error");
+      toast.error("Login Error")
     }finally {
       setIsLoading(false);
     }

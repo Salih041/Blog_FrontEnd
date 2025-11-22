@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {NavLink,useNavigate} from "react-router-dom" 
 import {useAuth} from "../context/AuthContext"
+import toast from 'react-hot-toast';
 
 import '../styles/navbar.css';
 
@@ -12,6 +13,7 @@ function Navbar() {
 
   const handleLogout = ()=>{
     logout();
+    toast.success("Logged out")
     navigate("/");
   }
 

@@ -1,3 +1,4 @@
+/* --- FORM DÜZENİ (Eski kodların aynısı) --- */
 .post-form-container {
     max-width: 800px;
     margin: 40px auto;
@@ -7,7 +8,7 @@
 .post-form-card {
     background-color: #ffffff;
     padding: 40px;
-    border-radius: 12px;
+    border-radius: 15px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
     border: 1px solid #eee;
 }
@@ -87,4 +88,70 @@
     border-radius: 8px;
     margin-bottom: 20px;
     border: 1px solid #f5c6cb;
+}
+
+.editor-input {
+    background-color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.ql-container {
+    min-height: 250px;
+    font-size: 1.15rem;
+    font-family: sans-serif;
+}
+
+.ql-toolbar {
+    background-color: #add6ff;
+    border-radius: 10px 10px 0 0;
+}
+
+.ql-container .ql-editor {
+    font-size: 1.15rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 250px;
+    line-height: 1.5;
+    color: #333;
+}
+
+.post-content a,
+.ql-snow .ql-editor a {
+    color: rgb(49, 114, 255) !important;
+    text-decoration: underline;
+}
+
+.post-content img,
+.ql-snow .ql-editor img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+.post-content blockquote,
+.ql-snow .ql-editor blockquote {
+    border-left: 4px solid #3498db !important;
+    padding-left: 15px;
+    color: #555;
+    font-style: italic;
+    margin: 15px 0;
+    background: #fff5f5;
+    padding: 10px;
+    border-radius: 0 8px 8px 0;
+}
+
+.post-content ul, .post-content ol,
+.ql-snow .ql-editor ul, .ql-snow .ql-editor ol {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.post-content h1, .ql-snow .ql-editor h1,
+.post-content h2, .ql-snow .ql-editor h2 {
+    color: #2c3e50;
+    margin-top: 20px;
+    font-weight: bold;
 }

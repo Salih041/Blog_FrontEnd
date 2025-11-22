@@ -6,6 +6,14 @@ function Post({ postProps }) {
     const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags } = postProps;
     const formattedDate = new Date(createdAt).toLocaleDateString('tr-TR');
 
+    const stripHtml = (html) => {
+        let modifiedHtml = html.replace(/<\/(p|div|h[1-6]|li|ul|ol|tr)>/gi, ' ');
+        modifiedHtml = modifiedHtml.replace(/<br\s*\/?>/gi, ' ');
+        const doc = new DOMParser().parseFromString(modifiedHtml, 'text/html');
+        let text = doc.body.textContent || "";
+        return text.replace(/\s+/g, ' ').trim();
+    };
+    const plainText = stripHtml(content);
     return (
         <article className='post-card'>
             <h2 className='post-card__title'><NavLink to={`/posts/${_id}`}>{title}</NavLink></h2>
@@ -17,7 +25,7 @@ function Post({ postProps }) {
             </div>
 
             <p className='post-card__content'>
-                {content.length > 250 ? content.substring(0, 250) + "..." : content}
+                {plainText}
             </p>
 
             {tags && tags.length > 0 && (

@@ -4,7 +4,7 @@ import { useParams, NavLink, useNavigate } from 'react-router-dom'
 import api from "../api"
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
-
+import DOMPurify from 'dompurify';
 import "../styles/PostDetail.css"
 
 function PostDetailsPage() {
@@ -156,8 +156,9 @@ function PostDetailsPage() {
           </div>
         </header>
 
-        <div className='post-content'>
-          {post.content}
+        <div className='post-content' dangerouslySetInnerHTML={{ 
+                __html: DOMPurify.sanitize(post.content) 
+            }}>
         </div>
 
         {post.tags && post.tags.length > 0 && (

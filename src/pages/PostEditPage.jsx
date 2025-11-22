@@ -3,6 +3,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 import "../styles/Posting.css"
 import toast from 'react-hot-toast';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 function PostEditPage() {
     const [title, setTitle] = useState("");
@@ -12,6 +14,16 @@ function PostEditPage() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    const modules = {
+        toolbar: [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+            [{ 'list': 'ordered' }],
+            ['link', 'image'],
+            ['clean']
+        ],
+    }
+
     const { id } = useParams();
 
     useEffect(() => {
@@ -20,7 +32,7 @@ function PostEditPage() {
                 const response = await api.get(`/posts/${id}`);
                 setTitle(response.data.title);
                 setContent(response.data.content);
-                if(response.data.tags && Array.isArray(response.data.tags)){
+                if (response.data.tags && Array.isArray(response.data.tags)) {
                     setTags(response.data.tags.join(", "));
                 }
                 setIsLoading(false)
@@ -44,7 +56,7 @@ function PostEditPage() {
             await api.put(`/posts/${id}`, {
                 title: title,
                 content: content,
-                tags : tagsArray
+                tags: tagsArray
             });
             toast.success("Post Updated")
 
@@ -55,7 +67,7 @@ function PostEditPage() {
             setError(error.response ? error.response.data.message : "Error.");
             toast.error(error)
             setIsLoading(false);
-        }finally{
+        } finally {
             setIsLoading(false);
         }
     }
@@ -76,12 +88,18 @@ function PostEditPage() {
 
                     <div className='form-group'>
                         <label htmlFor="tags">Tags (seperate with commas)</label>
-                        <input className='form-input' type="text" id='tags' placeholder='Tag1, tag2, tag3...' value={tags} onChange={(e)=>{setTags(e.target.value)}} />
+                        <input className='form-input' type="text" id='tags' placeholder='Tag1, tag2, tag3...' value={tags} onChange={(e) => { setTags(e.target.value) }} />
                     </div>
 
                     <div className='form-group'>
                         <label htmlFor="content">Content</label>
-                        <textarea className="form-textarea" id="content" value={content} onChange={(e) => { setContent(e.target.value) }} required></textarea>
+                        <ReactQuill
+                            theme='snow'
+                            value={content}
+                            onChange={setContent}
+                            className='editor-input'
+                            modules={modules}
+                        />
                     </div>
 
                     {error && <div className="form-error">{error}</div>}
