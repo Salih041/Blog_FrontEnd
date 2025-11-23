@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -21,6 +22,7 @@ function RegisterPage() {
     try {
       await api.post("/auth/register", {
         username: username,
+        email : email,
         password: password
       });
       toast.success("Registered")
@@ -39,14 +41,20 @@ function RegisterPage() {
         <h1 className='auth-title'>REGISTER</h1>
 
         <form onSubmit={handleSubmit}>
+
+          <div className='form-group'>
+            <label htmlFor="email">E-mail</label>
+            <input className='form-input' type="email" id='email' value={email} required placeholder='E-mail' onChange={(e)=>{setEmail(e.target.value)}} />
+          </div>
+
           <div className='form-group'>
             <label htmlFor="username">Username</label>
-            <input className='form-input' type="text" id='username' value={username} required placeholder='username' onChange={(e) => { setUsername(e.target.value) }} />
+            <input className='form-input' type="text" id='username' value={username} minLength={3} required placeholder='Username' onChange={(e) => { setUsername(e.target.value) }} />
           </div>
 
           <div className='form-group'>
             <label htmlFor="password">Password</label>
-            <input className='form-input' type="password" id='password' value={password} required placeholder='password' onChange={(e) => { setPassword(e.target.value) }} />
+            <input className='form-input' type="password" id='password' value={password} minLength={6} required placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} />
           </div>
 
           {error && <div className='auth-error'>{error}</div>}
