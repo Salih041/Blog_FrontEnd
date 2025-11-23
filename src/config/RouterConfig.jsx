@@ -8,6 +8,7 @@ import CreatePostPage from '../pages/CreatePostPage'
 import ProtectedRoute from '../components/ProtectedRoute'
 import PostEditPage from '../pages/PostEditPage'
 import ProfilePage from '../pages/ProfilePage'
+import ProfileEditPage from '../pages/ProfileEditPage'
 
 function RouterConfig() {
   return (
@@ -18,10 +19,10 @@ function RouterConfig() {
       <Route exact path="/register" element={<RegisterPage />}></Route>
       <Route exact path="/profile/:id" element={<ProfilePage/>}></Route>
 
-
       <Route element={<ProtectedRoute />}>
         <Route exact path="/create-post" element={<CreatePostPage />}></Route>
         <Route exact path="/posts/edit/:id" element={<PostEditPage/>}></Route>
+        <Route exact path="/profile/edit/:id" element={<ProfileEditPage/>}></Route>
       </Route>
     </Routes>
   )

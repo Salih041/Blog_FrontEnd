@@ -73,7 +73,7 @@
 }
 
 .submit-btn:hover:not(:disabled) {
-    background-color: #27ae60;
+    background-color: #00ff6a;
 }
 
 .submit-btn:disabled {
