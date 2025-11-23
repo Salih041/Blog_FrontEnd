@@ -22,7 +22,7 @@ function RegisterPage() {
     try {
       await api.post("/auth/register", {
         username: username,
-        email : email,
+        email: email,
         password: password
       });
       toast.success("Registered")
@@ -44,7 +44,7 @@ function RegisterPage() {
 
           <div className='form-group'>
             <label htmlFor="email">E-mail</label>
-            <input className='form-input' type="email" id='email' value={email} required placeholder='E-mail' onChange={(e)=>{setEmail(e.target.value)}} />
+            <input className='form-input' type="email" id='email' value={email} required placeholder='E-mail' onChange={(e) => { setEmail(e.target.value) }} />
           </div>
 
           <div className='form-group'>
@@ -55,6 +55,9 @@ function RegisterPage() {
           <div className='form-group'>
             <label htmlFor="password">Password</label>
             <input className='form-input' type="password" id='password' value={password} minLength={6} required placeholder='Password' onChange={(e) => { setPassword(e.target.value) }} />
+            <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '5px' }}>
+              * Password must contain at least 6 characters, 1 Uppercase Letter, 1 Lowercase Letter and 1 Number!
+            </p>
           </div>
 
           {error && <div className='auth-error'>{error}</div>}
