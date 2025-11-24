@@ -47,8 +47,8 @@ Follow these steps to run the project ***locally***.
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/Salih041/Blog_FrontEnd
-   cd selamy-frontend
+   git clone https://github.com/Salih041/selamy-client
+   cd selamy-client
 2. **Install dependencies**
     ```bash
     npm install
