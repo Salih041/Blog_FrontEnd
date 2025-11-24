@@ -28,7 +28,7 @@ function Navbar() {
   return (
     <nav className='nav'>
         <div className='nav__logo'>
-            <NavLink to="/">Selam Ya</NavLink>
+            <NavLink to="/">SelamY</NavLink>
         </div>
 
         <form onSubmit={handleSearch} className='search-form'>
