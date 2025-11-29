@@ -130,6 +130,11 @@ function PostDetailsPage() {
     }
   }
 
+  const handleTagClick = (e, tag) => {
+    e.stopPropagation();
+    navigate(`/?search=${tag}`);
+  }
+
   if (isLoading) return (<p>Loading</p>)
   if (error) return (<p>Error: {error}</p>)
   if (!post) return (<h4>Post Not Found</h4>)
@@ -157,7 +162,7 @@ function PostDetailsPage() {
                 <span>{post.author.username.charAt(0).toUpperCase()}</span>
               )}
             </div>
-            <span><NavLink to={`/profile/${post.author._id}`}>{post.author.username}</NavLink></span>
+            <span><NavLink to={`/profile/${post.author._id}`}>{post.author.displayName}</NavLink></span>
             <span>•</span>
             <span>📅 {new Date(post.createdAt).toLocaleDateString('tr-TR')}</span>
           </div>
@@ -171,7 +176,7 @@ function PostDetailsPage() {
         {post.tags && post.tags.length > 0 && (
           <div className="post-tags-container">
             {post.tags.map((tag, index) => (
-              <span key={index} className="post-tag">
+              <span key={index} className="post-tag" onClick={(e)=>{handleTagClick(e,tag)}}>
                 #{tag}
               </span>
             ))}
@@ -225,7 +230,7 @@ function PostDetailsPage() {
 
                       <strong className="comment-author" style={{ margin: 0 }}>
                         <NavLink to={`/profile/${comment.author._id}`}>
-                          {comment.author.username}
+                          {comment.author.displayName}
                         </NavLink>
                       </strong>
                     </div>

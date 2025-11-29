@@ -1,10 +1,11 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import "../styles/postCard.css"
 
 function Post({ postProps }) {
-    const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags} = postProps;
+    const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags } = postProps;
     const formattedDate = new Date(createdAt).toLocaleDateString('tr-TR');
+    const navigate = useNavigate();
 
     const stripHtml = (html) => {
         let modifiedHtml = html.replace(/<\/(p|div|h[1-6]|li|ul|ol|tr)>/gi, ' ');
@@ -14,9 +15,24 @@ function Post({ postProps }) {
         return text.replace(/\s+/g, ' ').trim();
     };
     const plainText = stripHtml(content);
+
+    const handleCardClick = () => {
+        navigate(`/posts/${_id}`);
+    }
+
+    const handleTagClick = (e, tag) => {
+        e.stopPropagation();
+        navigate(`/?search=${tag}`);
+    }
+
+    const handleProfileClick = (e) => {
+        e.stopPropagation();
+        // !
+    }
+
     return (
-        <article className='post-card'>
-            <h2 className='post-card__title'><NavLink to={`/posts/${_id}`}>{title}</NavLink></h2>
+        <article className='post-card' onClick={handleCardClick}>
+            <h2 className='post-card__title'> {title} </h2>
 
             <div className='post-card__meta'>
                 <div className="post-card-avatar">
@@ -26,7 +42,7 @@ function Post({ postProps }) {
                         <span>{author.username.charAt(0).toUpperCase()}</span>
                     )}
                 </div>
-                <span className='post-card__author'><NavLink to={`/profile/${author._id}`} className={"post-card__author_username"}>{author.username}</NavLink></span>
+                <span className='post-card__author'><NavLink to={`/profile/${author._id}`} className={"post-card__author_username"} onClick={(e) => { e.stopPropagation() }}>{author.displayName}</NavLink></span>
                 <span> • </span>
                 <span className='post-card__post-date'>{formattedDate}</span>
             </div>
@@ -38,7 +54,7 @@ function Post({ postProps }) {
             {tags && tags.length > 0 && (
                 <div className='post-card__tags'>
                     {tags.map((tag, index) => (
-                        <span key={index} className='post-card__tag'>#{tag}</span>
+                        <span key={index} className='post-card__tag' onClick={(e) => handleTagClick(e, tag)}>#{tag}</span>
                     ))}
                 </div>
             )}

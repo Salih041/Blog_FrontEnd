@@ -12,6 +12,7 @@ function ProfileEditPage() {
     const { userId } = useAuth();
 
     const [bio, setBio] = useState("");
+    const [displayName, setDisplayName] = useState("");
     const [previewImage, setPreviewImage] = useState(null);
     const [imageFile, setImageFile] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +29,7 @@ function ProfileEditPage() {
             try {
                 const res = await api.get(`/users/${id}`);
                 setBio(res.data.bio || "");
+                setDisplayName(res.data.displayName || res.data.username);
                 setPreviewImage(res.data.profilePicture || null);
             } catch (error) {
                 console.error(error);
@@ -51,6 +53,7 @@ function ProfileEditPage() {
 
         const formData = new FormData();
         formData.append('bio', bio);
+        formData.append('displayName', displayName);
         if (imageFile) {
             formData.append('profilePicture', imageFile);
         }
@@ -75,11 +78,22 @@ function ProfileEditPage() {
                 <h1>Update Profile</h1>
 
                 <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '500px' }}>
+                    <div className="form-group">
+                        <label>Display Name</label>
+                        <input
+                            className="form-input"
+                            type="text"
+                            value={displayName}
+                            onChange={(e) => setDisplayName(e.target.value)}
+                            maxLength={50}
+                            placeholder="Name"
+                        />
+                    </div>
 
                     <div className='profile-upload-wrapper'>
                         <div className="profile-avatar">
                             {previewImage ? (
-                                <img src={previewImage} alt="Avatar"/>
+                                <img src={previewImage} alt="Avatar" />
                             ) : (
                                 <span>?</span>
                             )}
@@ -104,9 +118,9 @@ function ProfileEditPage() {
                     </div>
 
                     <div className="form-actions">
-                        <button 
-                            type="button" 
-                            className="cancel-btn" 
+                        <button
+                            type="button"
+                            className="cancel-btn"
                             onClick={() => navigate(`/profile/${id}`)}
                         >
                             Cancel

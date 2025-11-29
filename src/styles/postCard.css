@@ -97,6 +97,13 @@
     border-radius: 12px;
     font-weight: bold;
     border: 1px solid var(--border-color);
+
+    transition: 0.2s;
+}
+
+.post-card__tag:hover{
+    background-color:#480096;
+    opacity: 0.8;
 }
 
 .post-card-avatar {

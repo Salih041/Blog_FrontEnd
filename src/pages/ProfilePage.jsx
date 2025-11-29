@@ -59,13 +59,16 @@ function ProfilePage() {
 
                 <div className="profile-info">
                     <h1 className="profile-username">
-                        {profileUser.username}
+                        {profileUser.displayName}
                         {isOwnProfile && (
                             <Link className="edit-profile-button" to={`/profile/edit/${id}`}>
                                 Edit
                             </Link>
                         )}
                     </h1>
+                    <p style={{ color: '#888', margin: '-5px 0 10px 0', fontSize: '0.9rem' }}>
+                        @{profileUser.username}
+                    </p>
 
                     {profileUser.bio && (
                         <p className="profile-bio-text">
