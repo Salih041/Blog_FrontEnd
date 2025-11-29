@@ -45,6 +45,7 @@
     margin-bottom: 16px;
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 
 .post-card__content {
@@ -96,4 +97,32 @@
     border-radius: 12px;
     font-weight: bold;
     border: 1px solid var(--border-color);
+}
+
+.post-card-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.post-card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    border-radius: 0;
+}
+
+.post-card__meta {
+    align-items: center; 
 }

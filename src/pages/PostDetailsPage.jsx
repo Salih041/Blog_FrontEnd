@@ -150,7 +150,14 @@ function PostDetailsPage() {
         <header className='post-header'>
           <h1 className='post-title'>{post.title}</h1>
           <div className='post-meta'>
-            <span>by <NavLink to={`/profile/${post.author._id}`}>{post.author.username}</NavLink></span>
+            <div className="comment-avatar">
+              {post.author.profilePicture ? (
+                <img src={post.author.profilePicture} alt="avatar" />
+              ) : (
+                <span>{post.author.username.charAt(0).toUpperCase()}</span>
+              )}
+            </div>
+            <span><NavLink to={`/profile/${post.author._id}`}>{post.author.username}</NavLink></span>
             <span>•</span>
             <span>📅 {new Date(post.createdAt).toLocaleDateString('tr-TR')}</span>
           </div>
@@ -206,8 +213,22 @@ function PostDetailsPage() {
                 });
                 return (
                   <article key={comment._id} className={`comment-bubble ${isMentioned ? 'mentioned' : ''}`}>
-                    <strong className="comment-author"><NavLink to={`/profile/${comment.author._id}`}>
-                      {comment.author.username}</NavLink></strong>
+                    <div className="comment-header" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+
+                      <div className="comment-avatar">
+                        {comment.author.profilePicture ? (
+                          <img src={comment.author.profilePicture} alt="avatar" />
+                        ) : (
+                          <span>{comment.author.username.charAt(0).toUpperCase()}</span>
+                        )}
+                      </div>
+
+                      <strong className="comment-author" style={{ margin: 0 }}>
+                        <NavLink to={`/profile/${comment.author._id}`}>
+                          {comment.author.username}
+                        </NavLink>
+                      </strong>
+                    </div>
                     <p className="comment-text">{formattedText}</p>
                     <div className="comment-actions">
                       <button

@@ -229,6 +229,11 @@
     color: var(--text-primary);
     line-height: 1.5;
     margin-bottom: 12px;
+
+    overflow-wrap: break-word;  
+    word-wrap: break-word;      
+    word-break: break-word; 
+    max-width: 100%;
 }
 
 .comment-actions {
@@ -324,4 +329,27 @@
 
 .post-content * {
     color: var(--text-primary) !important
+}
+
+.comment-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.comment-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    box-shadow: none;
 }

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import "../styles/postCard.css"
 
 function Post({ postProps }) {
-    const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags } = postProps;
+    const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags} = postProps;
     const formattedDate = new Date(createdAt).toLocaleDateString('tr-TR');
 
     const stripHtml = (html) => {
@@ -19,7 +19,14 @@ function Post({ postProps }) {
             <h2 className='post-card__title'><NavLink to={`/posts/${_id}`}>{title}</NavLink></h2>
 
             <div className='post-card__meta'>
-                <span className='post-card__author'>by <NavLink to={`/profile/${author._id}`} className={"post-card__author_username"}>{author.username}</NavLink></span>
+                <div className="post-card-avatar">
+                    {author.profilePicture ? (
+                        <img src={author.profilePicture} alt={author.username} />
+                    ) : (
+                        <span>{author.username.charAt(0).toUpperCase()}</span>
+                    )}
+                </div>
+                <span className='post-card__author'><NavLink to={`/profile/${author._id}`} className={"post-card__author_username"}>{author.username}</NavLink></span>
                 <span> • </span>
                 <span className='post-card__post-date'>{formattedDate}</span>
             </div>
