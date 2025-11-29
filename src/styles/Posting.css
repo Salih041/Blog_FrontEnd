@@ -186,3 +186,30 @@
     color: #e74c3c;
     font-weight: bold;
 }
+
+.cancel-btn {
+    padding: 12px 30px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn:hover {
+    background-color: #c0392b;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.form-actions .submit-btn, 
+.form-actions .cancel-btn {
+    flex: 1;
+}

@@ -150,6 +150,14 @@ function CreatePostPage() {
                     {error && <div className="form-error">{error}</div>}
 
                     <div className="form-actions">
+                        <button 
+                            type="button" 
+                            className="cancel-btn"
+                            onClick={() => navigate("/")}
+                        >
+                            Cancel
+                        </button>
+
                         <button type="submit" className="submit-btn" disabled={isLoading || isInvalidLength} style={{ opacity: (isLoading || isInvalidLength) ? 0.6 : 1 }}>
                             Share
                         </button>
