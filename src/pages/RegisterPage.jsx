@@ -76,6 +76,30 @@ function RegisterPage() {
           <button className='auth-button' type='submit' disabled={isLoading}>{isLoading ? 'Registering' : "Register"}</button>
         </form>
 
+        <div style={{
+          marginTop: '25px',
+          borderTop: '1px solid #eee',
+          paddingTop: '15px',
+          fontSize: '0.8rem', 
+          color: '#666',    
+          lineHeight: '1.5' 
+        }}>
+          <p style={{ fontWeight: 'bold', marginBottom: '5px', color: '#444' }}>
+            By registering, you acknowledge that:
+          </p>
+          <ul style={{ paddingLeft: '20px', listStyleType: 'disc' }}>
+            <li style={{ marginBottom: '5px' }}>
+              <strong>Content Responsibility:</strong> You are entirely responsible for the posts and comments you share.
+            </li>
+            <li style={{ marginBottom: '5px' }}>
+              <strong>Demo Project:</strong> This is an educational project. Data availability is not guaranteed.
+            </li>
+            <li>
+              <strong>Privacy:</strong> Your email and data will strictly remain within this application.
+            </li>
+          </ul>
+        </div>
+
         <div className='auth-footer'>
           Already have an account? <Link to={"/login"}>Login</Link>
         </div>
