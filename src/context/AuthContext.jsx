@@ -26,6 +26,9 @@ export function AuthProvider({ children }) {
     }, [token,userId])
 
     const login = (newToken,newUserId) => {
+        localStorage.setItem('token', newToken);
+        localStorage.setItem('userId', newUserId);
+        api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
         setToken(newToken)
         setUserId(newUserId)
     }

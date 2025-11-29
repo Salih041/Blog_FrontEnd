@@ -1,15 +1,22 @@
-import React, { useState , useEffect} from 'react'
-import { NavLink, useNavigate} from "react-router-dom"
+import React, { useState, useEffect } from 'react'
+import { NavLink, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import toast from 'react-hot-toast';
 import api from '../api';
 import '../styles/navbar.css';
+import { IoMdNotifications } from "react-icons/io";
+
 
 function Navbar() {
 
   const { isLoggedIn, logout, userId } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
+
+  const [notifications, setNotifications] = useState([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [showNotifications, setShowNotifications] = useState(false);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,6 +47,68 @@ function Navbar() {
     setSearchQuery("");
   }
 
+  const fetchNotifications = async () => {
+    if (!isLoggedIn) {
+      return;
+    }
+    try {
+      const res = await api.get("/notifications");
+      setNotifications(res.data);
+      const count = res.data.filter(n => !n.isRead).length;
+      setUnreadCount(count);
+    } catch (error) {
+      console.error("Notification error", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchNotifications();
+    const interval = setInterval(fetchNotifications, 100000); //100s
+    return () => clearInterval(interval);
+  }, [isLoggedIn]);
+
+  const handleNotificationClick = async (notif) => {
+    setShowNotifications(false);
+    if (!notif.isRead) {
+      try {
+        await api.put(`/notifications/${notif._id}/read`);
+        fetchNotifications();
+      } catch (error) { console.error(error); }
+    }
+
+    if (notif.type === 'follow') {
+      navigate(`/profile/${notif.sender._id}`);
+    } else {
+      if (notif.post?._id) {
+        navigate(`/posts/${notif.post._id}`);
+      } else {
+        toast.error("This content is no longer available.");
+      }
+    }
+  };
+
+  const handleMarkAllRead = async () => {
+    try {
+      await api.put("/notifications/mark-all-read");
+      fetchNotifications();
+    } catch (error) { console.error(error); }
+  };
+
+  const getNotificationText = (type) => {
+    switch (type) {
+      case 'mention':
+        return "mentioned you in a comment";
+      case 'like':
+        return "liked your post";
+      case 'comment':
+        return "commented on the post.";
+      case 'follow':
+        return "started following you";
+      default:
+        return "interacted with you.";
+    }
+  };
+
   return (
     <nav className='nav'>
       <div className='nav__logo'>
@@ -53,6 +122,54 @@ function Navbar() {
       <div className='nav__links'>
         {isLoggedIn ? (
           <>
+            <div className="nav-notification-wrapper">
+              <button className="notification-btn" onClick={() => setShowNotifications(!showNotifications)}>
+                <IoMdNotifications />
+                {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
+              </button>
+
+              {showNotifications && (
+                <div className="notification-dropdown">
+                  {notifications.length > 0 ? (
+                    <>
+                      {notifications.map(notif => (
+                        <div
+                          key={notif._id}
+                          className={`notification-item ${!notif.isRead ? 'unread' : ''}`}
+                          onClick={() => handleNotificationClick(notif)}
+                        >
+                          <div className="notification-avatar-container">
+                            {notif.sender?.profilePicture ? (
+                              <img
+                                src={notif.sender.profilePicture}
+                                alt="avatar"
+                                className="notification-avatar-img"
+                              />
+                            ) : (
+                              <span className="notification-avatar-text">
+                                {notif.sender?.username?.charAt(0).toUpperCase() || "?"}
+                              </span>
+                            )}
+                          </div>
+                          <div className="notification-content">
+                            <p className="notification-text">
+                              <strong>{notif.sender?.username || "user"} </strong>
+                              {getNotificationText(notif.type)}
+                            </p>
+                            <span className="notification-time">
+                              {new Date(notif.createdAt).toLocaleDateString()}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                      <button className="mark-all-btn" onClick={handleMarkAllRead}>Mark All Read</button>
+                    </>
+                  ) : (
+                    <div className="notification-empty">No notification</div>
+                  )}
+                </div>
+              )}
+            </div>
             <NavLink to={`/profile/${userId}`} className="nav-profile-link" title="Profilim">
               <div className="nav-avatar-container">
                 {currentUser?.profilePicture ? (
