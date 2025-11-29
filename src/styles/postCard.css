@@ -2,18 +2,22 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    border: 2px solid black;
+
+    border: 2px solid var(--border-color);
+
     border-radius: 10px;
     padding: 0.5rem;
     padding-top: 0;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-    background-color: aliceblue;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
+
+    background-color: var(--bg-secondary);
 }
 
 .post-card:hover {
     transform: translateY(-1px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5);
-    background-color: rgb(204, 231, 255);
+    box-shadow: 0 12px 24px var(--shadow-color);
+
+    border-color: var(--accent-color);
     cursor: pointer;
 }
 
@@ -26,17 +30,17 @@
 
 .post-card__title a {
     text-decoration: none;
-    color: #2c3e50;
+    color: var(--text-primary);
     transition: color 0.2s;
 }
 
 .post-card__title a:hover {
-    color: #3498db;
+    color: var(--accent-color);
 }
 
 .post-card__meta {
     font-size: 0.9rem;
-    color: #868d8e;
+    color: var(--text-secondary);
     font-weight: bold;
     margin-bottom: 16px;
     display: flex;
@@ -44,7 +48,7 @@
 }
 
 .post-card__content {
-    color: black;
+    color: var(--text-primary);
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 20px;
@@ -57,20 +61,20 @@
 .post-card__footer {
     display: flex;
     justify-content: flex-start;
-    border-top: 1px solid gray;
+    border-top: 1px solid var(--border-color);
     padding-top: 0.5rem;
     gap: 2rem;
-    color: gray;
+    color: var(--text-secondary);
     font-weight: bold;
     font-size: 0.9rem;
 }
 
-.post-card__author_username{
-    color: rgb(0, 0, 0);
+.post-card__author_username {
+    color: var(--text-primary);
 }
-.post-card__author_username:hover
-{
-    color: #3498db;
+
+.post-card__author_username:hover {
+    color: var(--accent-color);
     transition: color 0.2s;
 }
 
@@ -84,11 +88,12 @@
 
 .post-card__tag {
     font-size: 0.75rem;
-    color: #666;
-    background-color: #ffe0e0;
+    color: var(--text-secondary);
+
+    background-color: var(--bg-primary);
+
     padding: 4px 10px;
     border-radius: 12px;
     font-weight: bold;
-    border: 1px solid #eee;
-
+    border: 1px solid var(--border-color);
 }

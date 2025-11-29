@@ -1,4 +1,33 @@
-/* src/index.css (Sadece global stiller burada kalır) */
+:root {
+  --bg-primary: #f4f4f4;       
+  --bg-secondary: #ffffff;  
+  --bg-third:  rgb(172, 236, 253);
+  --bg-input: #ffffff;         
+
+  --text-primary: #333333;     
+  --text-secondary: #666666;   
+  
+  --border-color: #dddddd;     
+  
+  --accent-color: #3498db;    
+  --shadow-color: rgba(0, 0, 0, 0.1); 
+}
+
+[data-theme='dark'] {
+
+  --bg-primary: #121212;       
+  --bg-secondary: #1e1e1e;  
+  --bg-third : rgb(0, 56, 84);
+  --bg-input: #2c2c2c;         
+
+  --text-primary: #e0e0e0;     
+  --text-secondary: #aaaaaa;   
+  
+  --border-color: #333333;
+  
+  --shadow-color: rgba(255, 255, 255, 0.2);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,23 +36,30 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
   line-height: 1.6;
+  
+
+  background-color: var(--bg-primary); 
+  color: var(--text-primary);
+  
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Linkler için global bir temizlik */
 a {
   text-decoration: none;
-  color: inherit; /* Rengi ebeveyninden al */
+  color: inherit; 
+  cursor: pointer;
 }
 
-/* Butonlar için global bir temel */
 button {
   cursor: pointer;
-  font-family: inherit; /* Fontu body'den al */
-  border: solid 1px;
+  font-family: inherit;
+  border: solid 1px var(--border-color);
   padding: 5px;
   box-sizing: border-box;
   border-radius: 5px;
   background: none;
+  color: var(--text-primary);
+  
+  transition: all 0.2s ease;
 }

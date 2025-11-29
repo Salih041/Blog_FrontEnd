@@ -1,7 +1,7 @@
-.posts-container{
+.posts-container {
     min-width: 400px;
-    max-width: 60%; 
-    margin: 0 auto; 
+    max-width: 60%;
+    margin: 0 auto;
     padding: 15px 15px;
 
     display: flex;
@@ -11,7 +11,7 @@
 
 .home__controls {
     display: flex;
-    justify-content: center; /* Ortaya hizala */
+    justify-content: center;
     align-items: center;
     margin-top: 30px;
     margin-bottom: 30px;
@@ -20,35 +20,38 @@
 
 .home__controls button {
     padding: 10px 20px;
-    background-color: #3498db;
+    background-color: var(--accent-color);
     color: white;
     border-radius: 6px;
     cursor: pointer;
+    border: none;
     transition: background-color 0.2s;
 }
 
 .home__controls button:hover:not(:disabled) {
-    background-color: #2980b9;
+    opacity: 0.9;
     cursor: pointer;
 }
 
 .home__controls button:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background-color: var(--text-secondary);
 }
 
-.home_clear-search-button
-{
+.home_clear-search-button {
     cursor: pointer;
     box-sizing: border-box;
     padding: 10px;
-    border: 1px solid black;
+    border: 1px solid var(--border-color);
     background-color: rgb(255, 130, 130);
+    color: var(--text-primary);
     font-weight: bold;
     transition: 0.5s;
     border-radius: 10px;
 }
-.home_clear-search-button:hover
-{
-    background-color:rgb(255, 109, 109);
+
+.home_clear-search-button:hover {
+    background-color: rgb(255, 109, 109);
+    border-color: var(--accent-color);
 }

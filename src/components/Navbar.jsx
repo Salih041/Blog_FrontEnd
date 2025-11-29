@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import api from '../api';
 import '../styles/navbar.css';
 import { IoMdNotifications } from "react-icons/io";
+import { useTheme } from '../context/ThemeContext';
 
 
 function Navbar() {
@@ -16,6 +17,8 @@ function Navbar() {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [showNotifications, setShowNotifications] = useState(false);
+
+  const { theme, toggleTheme } = useTheme();
 
   const navigate = useNavigate();
 
@@ -193,6 +196,9 @@ function Navbar() {
             <NavLink to="/register">Register</NavLink>
           </>
         )}
+        <button className="theme-toggle-btn" onClick={toggleTheme} title="Temayı Değiştir">
+              {theme === 'light' ? '🌙' : '☀️'}
+            </button>
       </div>
     </nav>
   )

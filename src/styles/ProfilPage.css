@@ -8,21 +8,25 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    background: rgb(162, 224, 251);
+
+    background: var(--bg-third);
+
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 1);
+
+    box-shadow: 0 4px 5px var(--shadow-color);
+
     flex-wrap: wrap;
     justify-content: center;
     transition: 0.3s;
+
+    border: 1px solid var(--border-color);
 }
 
 .profile-header:hover {
-    background: rgb(144, 220, 252);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 1);
-    transform: translateY(+2px);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow-color);
 }
-
 
 .profile-header form {
     display: flex;
@@ -30,7 +34,6 @@
     align-items: center;
     width: 100%;
 }
-
 
 .profile-upload-wrapper {
     display: flex;
@@ -53,7 +56,6 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 4px 10px rgba(118, 75, 162, 0.5);
-
     overflow: hidden;
     flex-shrink: 0;
     margin-bottom: 15px;
@@ -73,7 +75,7 @@
 
 .profile-username {
     margin: 0 0 10px 0;
-    color: #333;
+    color: var(--text-primary);
     font-size: 2rem;
     display: flex;
     align-items: center;
@@ -83,25 +85,27 @@
 
 .profile-bio-text {
     font-style: italic;
-    color: #585858;
+    color: var(--text-secondary);
     margin-bottom: 10px;
     line-height: 1.5;
     font-size: 1rem;
 }
 
 .profile-join-date {
-    color: #573434;
+    color: var(--text-secondary);
     font-size: 0.9rem;
     margin-bottom: 15px;
     font-style: italic;
 }
 
 .profile-stats span {
-    background-color: #d0def3;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
     padding: 5px 15px;
     border-radius: 20px;
     font-size: 0.9rem;
-    color: #4f0000;
     font-weight: 600;
 }
 
@@ -122,7 +126,6 @@
     color: white;
 }
 
-
 .submit-btn,
 .cancel-btn {
     padding: 12px;
@@ -131,25 +134,24 @@
     font-size: 1rem;
     cursor: pointer;
 
-    background-color: #f0f2f5;
-    color: #555;
-    border: 2px solid #ddd;
-    box-shadow: 0px 3px 0px rgba(69, 66, 66, 0.5);
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
+    box-shadow: 0px 3px 0px var(--shadow-color);
     transition: background-color 0.2s;
 }
 
 .submit-btn:hover,
 .cancel-btn:hover {
-    background-color: #e4e6eb;
+    background-color: var(--border-color);
 }
-
 
 label.submit-btn {
     display: inline-block;
     width: auto;
     margin-bottom: 20px;
 }
-
 
 .form-actions {
     display: flex;
@@ -171,8 +173,6 @@ label.submit-btn {
 
 .form-actions .submit-btn:hover:not(:disabled) {
     background-color: #27ae60;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .form-actions .cancel-btn {
@@ -183,8 +183,6 @@ label.submit-btn {
 
 .form-actions .cancel-btn:hover {
     background-color: #c0392b;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .submit-btn:disabled {
@@ -200,13 +198,19 @@ label.submit-btn {
 
 .form-group label {
     font-weight: 600;
-    color: #444;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 8px;
 }
 
 .form-textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
+
+    background-color: var(--bg-input);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+
     border-radius: 8px;
     min-height: 100px;
     resize: vertical;
@@ -214,19 +218,24 @@ label.submit-btn {
     margin-top: 5px;
 }
 
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
 .profile-divider {
     margin: 30px 0;
     border: 0;
     height: 1px;
-    background: #eee;
+    background: var(--border-color);
 }
 
 .profile-posts-section_Posts-header {
     font-size: 1.5rem;
-    color: #444;
+    color: var(--text-primary);
     margin-bottom: 20px;
     padding-left: 10px;
-    border-left: 4px solid rgb(125, 210, 246);
+    border-left: 4px solid var(--accent-color);
 }
 
 .profile-posts-container {
@@ -237,12 +246,11 @@ label.submit-btn {
 
 .no-post-p {
     text-align: center;
-    color: #999;
+    color: var(--text-secondary);
     font-style: italic;
     margin-top: 30px;
     font-size: 1.1rem;
 }
-
 
 @media (max-width: 600px) {
     .profile-header {
