@@ -5,6 +5,7 @@ import api from "../api"
 import { useAuth } from '../context/AuthContext'
 import toast from 'react-hot-toast'
 import DOMPurify from 'dompurify';
+import UserListModal from '../components/UserListModal'
 import "../styles/PostDetail.css"
 
 function PostDetailsPage() {
@@ -18,6 +19,8 @@ function PostDetailsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { isLoggedIn, userId } = useAuth();
+
+  const [showLikesModal, setShowLikesModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -187,7 +190,11 @@ function PostDetailsPage() {
           <button className='like-button' onClick={handleLike} disabled={!isLoggedIn} style={{ color: hasLiked ? '#e74c3c' : '', borderColor: hasLiked ? '#e74c3c' : '' }}>
             {hasLiked ? '❤️ Liked' : '🤍 Like'}
           </button>
-          <span><strong>{post.likeCount}</strong>Likes</span>
+          <span onClick={() => { if (post.likeCount > 0) setShowLikesModal(true) }} style={{
+            cursor: post.likeCount > 0 ? 'pointer' : 'default',
+            fontWeight: 'bold',
+            fontStyle: post.likeCount > 0 ? 'none' : 'italic'
+          }}><strong>{post.likeCount}</strong> Likes </span>
         </footer>
       </article>
 
@@ -229,7 +236,7 @@ function PostDetailsPage() {
                     <div className="comment-header" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
 
                       <div className="comment-avatar">
-                        {comment.author ? (
+                        {comment.author?.profilePicture && comment.author.profilePicture !== "" ? (
                           <img src={comment.author.profilePicture} alt="avatar" />
                         ) : (
                           <span>{author.username.charAt(0).toUpperCase()}</span>
@@ -261,6 +268,9 @@ function PostDetailsPage() {
           }
         </div>
       </section>
+      {showLikesModal && (
+        <UserListModal title="Likes" users={post.likes} onClose={()=>{setShowLikesModal(false)}}/>
+      )}
     </div >
   )
 }
