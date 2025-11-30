@@ -8,6 +8,7 @@ import DOMPurify from 'dompurify';
 import UserListModal from '../components/UserListModal'
 import CommentItem from '../components/CommentItem'
 import "../styles/PostDetail.css"
+import { formatRelativeTime } from '../utils/dateFormater';
 
 function PostDetailsPage() {
 
@@ -24,24 +25,26 @@ function PostDetailsPage() {
   const [showLikesModal, setShowLikesModal] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        setError(null);
-        setIsLoading(true);
+  const fetchPostData = async () => {
+    try {
+      setError(null);
 
-        const response = await api.get(`/posts/${id}`);
-        setPost(response.data)
-        console.log(response.data)
+      const response = await api.get(`/posts/${id}`);
 
-      } catch (error) {
-        console.log("error : ", error);
-        setError(error.response ? error.response.data.message : error.message);
-      } finally {
-        setIsLoading(false);
-      }
+      setPost(response.data)
+      console.log(response.data)
+
+    } catch (error) {
+      console.log("error : ", error);
+      setError(error.response ? error.response.data.message : error.message);
+    } finally {
+      setIsLoading(false);
     }
-    fetchPost();
+  }
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetchPostData();
   }, [id])
 
 
@@ -51,12 +54,8 @@ function PostDetailsPage() {
       return
     }
     try {
-      const response = await api.put(`/posts/${id}/like`);
-      setPost(prevPost => ({
-        ...prevPost,
-        likeCount: response.data.likeCount,
-        likes: response.data.likes
-      }));
+      await api.put(`/posts/${id}/like`);
+      await fetchPostData();
     } catch (error) {
       console.error("Like error : ", error);
     }
@@ -161,8 +160,8 @@ function PostDetailsPage() {
   if (error) return (<p>Error: {error}</p>)
   if (!post) return (<h4>Post Not Found</h4>)
 
-  const hasLiked = post.likes.includes(userId);
-  const isOwner = isLoggedIn && userId === post.author._id;
+  const hasLiked = post.likes.some(like => (like._id || like).toString() === userId); const isOwner = isLoggedIn && userId === post.author?._id;
+  const authorExists = !!post.author;
   return (
     <div className='Post-detail-wrapper'>
       <article className='full-post-artice'>
@@ -177,16 +176,19 @@ function PostDetailsPage() {
         <header className='post-header'>
           <h1 className='post-title'>{post.title}</h1>
           <div className='post-meta'>
-            <div className="comment-avatar">
+            {authorExists && (<div className="comment-avatar">
               {post.author.profilePicture ? (
                 <img src={post.author.profilePicture} alt="avatar" />
               ) : (
                 <span>{post.author.username.charAt(0).toUpperCase()}</span>
               )}
-            </div>
-            <span><NavLink to={`/profile/${post.author._id}`}>{post.author.displayName}</NavLink></span>
+            </div>)}
+
+            <span>
+              {authorExists ? (<NavLink to={`/profile/${post.author._id}`}>{post.author.displayName}</NavLink>) : (<span style={{ fontStyle: 'italic', color: '#999' }}>Deleted User</span>)}
+            </span>
             <span>•</span>
-            <span>📅 {new Date(post.createdAt).toLocaleDateString('tr-TR')}</span>
+            <span>📅 {formatRelativeTime(post.createdAt)}</span>
           </div>
         </header>
 

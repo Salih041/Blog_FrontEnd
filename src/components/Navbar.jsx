@@ -6,6 +6,7 @@ import api from '../api';
 import '../styles/navbar.css';
 import { IoMdNotifications } from "react-icons/io";
 import { useTheme } from '../context/ThemeContext';
+import { formatRelativeTime } from '../utils/dateFormater';
 
 
 function Navbar() {
@@ -160,7 +161,7 @@ function Navbar() {
                               {getNotificationText(notif.type)}
                             </p>
                             <span className="notification-time">
-                              {new Date(notif.createdAt).toLocaleDateString()}
+                              {formatRelativeTime(notif.createdAt)}
                             </span>
                           </div>
                         </div>

@@ -1,10 +1,11 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom';
 import "../styles/postCard.css"
+import {formatRelativeTime} from "../utils/dateFormater"
 
 function Post({ postProps }) {
     const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags } = postProps;
-    const formattedDate = new Date(createdAt).toLocaleDateString('tr-TR');
+    const formattedDate = formatRelativeTime(createdAt)
     const navigate = useNavigate();
 
     const stripHtml = (html) => {

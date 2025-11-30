@@ -17,7 +17,9 @@ function UserListModal({ title, users, onClose }) {
 
                 <div className="modal-body">
                     {users.length > 0 ? (
-                        users.map(user => (
+                        users.map(user => {
+                            if (typeof user === 'string') return null;
+                            return (
                             <div key={user._id} className="modal-user-item">
                                 <div className="modal-user-avatar">
                                     {user.profilePicture ? (
@@ -34,7 +36,7 @@ function UserListModal({ title, users, onClose }) {
                                     <span className="modal-user-username">@{user.username}</span>
                                 </div>
                             </div>
-                        ))
+                        )})
                     ) : (
                         <p className="modal-empty">Empty.</p>
                     )}

@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../api';
 import toast from 'react-hot-toast';
 import "../styles/PostDetail.css"
+import { formatRelativeTime } from '../utils/dateFormater';
 
 function CommentItem({ comment, postId, onCommentUpdated, onCommentDeleted }) {
 
@@ -139,7 +140,7 @@ function CommentItem({ comment, postId, onCommentUpdated, onCommentDeleted }) {
 
                 <span>{likeCount}</span>
 
-                <span style={{ marginLeft: '10px' }}>• {new Date(comment.createdAt).toLocaleDateString()}</span>
+                <span style={{ marginLeft: '10px' }}>• {formatRelativeTime(comment.createdAt)}</span>
             </div>
         </article>
     );
