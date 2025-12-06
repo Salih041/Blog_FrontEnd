@@ -8,7 +8,7 @@ import { formatRelativeTime } from '../utils/dateFormater';
 
 function CommentItem({ comment, postId, onCommentUpdated, onCommentDeleted, onReply }) {
 
-    const { userId, isLoggedIn } = useAuth();
+    const { userId, isLoggedIn, isAdmin } = useAuth();
 
     const [isEditing, setIsEditing] = useState(false);
     const [editText, setEditText] = useState(comment.text);
@@ -25,6 +25,7 @@ function CommentItem({ comment, postId, onCommentUpdated, onCommentDeleted, onRe
     };
 
     const isAuthor = userId && author._id && userId === author._id;
+    const canManage = isAuthor || isAdmin;
 
     const handleDelete = async () => {
         if (!window.confirm("Are you sure you want to delete this comment?")) return;
@@ -107,9 +108,10 @@ function CommentItem({ comment, postId, onCommentUpdated, onCommentDeleted, onRe
                     </span>
                 </div>
 
-                {isAuthor && !isEditing && (
+                {canManage && !isEditing && (
                     <div className="comment-controls" style={{ fontSize: '0.8rem', display: 'flex', gap: '10px' }}>
-                        <button onClick={() => setIsEditing(true)} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#3498db' }}>Edit</button>
+                        <button onClick={() => setIsEditing(true)} style={!isAuthor ? { pointerEvents: 'none',opacity: 0.5,cursor: 'not-allowed',borderColor: '#ccc'
+                } : {border: 'none', background: 'none', cursor: 'pointer', color: '#3498db' }}>Edit</button>
                         <button onClick={handleDelete} style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#e74c3c' }}>Delete</button>
                     </div>
                 )}

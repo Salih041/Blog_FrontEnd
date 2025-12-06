@@ -24,9 +24,9 @@ function LoginPage() {
         username: username,
         password: password
       });
-      const { token, userID } = response.data;
+      const { token, userID, role } = response.data;
 
-      login(token, userID);
+      login(token, userID, role);
       toast.success("Logged in")
       navigate('/');
     } catch (error) {

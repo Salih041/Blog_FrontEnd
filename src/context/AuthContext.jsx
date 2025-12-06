@@ -7,6 +7,7 @@ export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(localStorage.getItem('token') || null)
     const [userId, setUserId] = useState(localStorage.getItem('userId') || null);
+    const [userRole, setUserRole] = useState(localStorage.getItem('role') || 'user');
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
@@ -25,20 +26,28 @@ export function AuthProvider({ children }) {
         }
     }, [token,userId])
 
-    const login = (newToken,newUserId) => {
+    const login = (newToken,newUserId, newRole) => {
         localStorage.setItem('token', newToken);
         localStorage.setItem('userId', newUserId);
+        localStorage.setItem('role', newRole || 'user');
         api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
         setToken(newToken)
         setUserId(newUserId)
+        setUserRole(newRole || 'user');
     }
 
     const logout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('role');
+        setUserRole('user');
         setToken(null);
     }
 
     const value = {
-        user, token,userId, login, logout,
+        user, token,userId,userRole,
+        isAdmin:userRole=='admin',
+        login, logout,
         isLoggedIn: !!token
     }
 

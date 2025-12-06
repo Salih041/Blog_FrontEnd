@@ -20,7 +20,7 @@ function PostDetailsPage() {
   const [commentText, setCommentText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { isLoggedIn, userId } = useAuth();
+  const { isLoggedIn, userId , isAdmin} = useAuth();
 
   const [showLikesModal, setShowLikesModal] = useState(false);
   const navigate = useNavigate();
@@ -170,15 +170,23 @@ function PostDetailsPage() {
   if (error) return (<p>Error: {error}</p>)
   if (!post) return (<h4>Post Not Found</h4>)
 
-  const hasLiked = post.likes.some(like => (like._id || like).toString() === userId); const isOwner = isLoggedIn && userId === post.author?._id;
+  const hasLiked = post.likes.some(like => (like._id || like).toString() === userId); 
+  const isOwner = isLoggedIn && userId === post.author?._id;
+  const canManage = isOwner || isAdmin;
   const authorExists = !!post.author;
   return (
     <div className='Post-detail-wrapper'>
       <article className='full-post-artice'>
-        {isOwner && (
+        {canManage && (
           <div className='owner-controls'>
             <span>Author Panel:</span>
-            <NavLink className="link-edit" to={`/posts/edit/${post._id}`}>Edit Post</NavLink>
+            <NavLink className="link-edit" to={`/posts/edit/${post._id}`}
+            style={!isOwner ? { 
+                    pointerEvents: 'none',
+                    opacity: 0.5,
+                    cursor: 'not-allowed',
+                    borderColor: '#ccc'
+                } : {}}>Edit Post</NavLink>
             <button className='button-delete' onClick={handleDeletePost}>Delete Post</button>
           </div>
         )}

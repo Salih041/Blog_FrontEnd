@@ -112,9 +112,9 @@
 
 .edit-profile-button {
     font-size: 0.9rem;
-    color: rgba(255, 192, 203, 0.6);
+    color: rgba(255, 192, 203, 0.802);
     text-decoration: none;
-    border: 1px solid rgba(255, 192, 203, 0.6);
+    border: 1px solid rgba(255, 126, 147, 0.806);
     padding: 4px 12px;
     border-radius: 20px;
     transition: all 0.2s;
@@ -292,6 +292,33 @@ label.submit-btn {
     height: 3px;
     background-color: var(--accent-color);
     border-radius: 3px 3px 0 0;
+}
+
+.admin-badge {
+    font-size: 0.9rem;
+    color: #fff;
+    background: linear-gradient(45deg, #ffd11b, #ff6600);
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    box-shadow: 0 2px 5px rgb(243, 157, 18);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: help;
+    
+    animation: badgeShine 3s infinite linear;
+    background-size: 200% auto;
+}
+
+
+@keyframes badgeShine {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 @media (max-width: 600px) {

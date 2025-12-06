@@ -67,6 +67,11 @@ function ProfilePage() {
                 <div className="profile-info">
                     <h1 className="profile-username">
                         {profileUser.displayName}
+                        {profileUser.role === 'admin' && (
+                            <span className="admin-badge" title="Admin">
+                                &#9733;
+                            </span>
+                        )}
                         {isOwnProfile && (
                             <Link className="edit-profile-button" to={`/profile/edit/${id}`}>
                                 Edit
