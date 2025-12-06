@@ -4,7 +4,7 @@ import "../styles/postCard.css"
 import {formatRelativeTime} from "../utils/dateFormater"
 
 function Post({ postProps }) {
-    const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags , slug, statu} = postProps;
+    const { _id, title, content, comments, commentCount, like, likeCount, author, createdAt, tags , slug, statu, isEdited, editedAt} = postProps;
     const formattedDate = formatRelativeTime(createdAt)
     const navigate = useNavigate();
 
@@ -46,6 +46,10 @@ function Post({ postProps }) {
                 <span className='post-card__author'><NavLink to={`/profile/${author._id}`} className={"post-card__author_username"} onClick={(e) => { e.stopPropagation() }}>{author.displayName}</NavLink></span>
                 <span> • </span>
                 <span className='post-card__post-date'>{formattedDate}</span>
+                {isEdited && (<>
+                <span>•</span>
+                <span style={{ fontStyle: 'italic', color: '#666', fontWeight:"100" }}>Edited at {formatRelativeTime(editedAt)}</span>
+            </>)}
             </div>
 
             <p className='post-card__content'>

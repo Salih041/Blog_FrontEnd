@@ -200,6 +200,10 @@ function PostDetailsPage() {
             </span>
             <span>•</span>
             <span>📅 {formatRelativeTime(post.createdAt)}</span>
+            {post.isEdited && (<>
+              <span>•</span>
+              <span style={{ fontStyle: 'italic', color: '#666' }}>Edited at {formatRelativeTime(post.editedAt)}</span>
+            </>)}
           </div>
         </header>
 
